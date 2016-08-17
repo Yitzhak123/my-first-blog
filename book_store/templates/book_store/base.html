@@ -1,0 +1,25 @@
+
+{% load staticfiles %}
+<html>
+	<head>
+
+		<title> Welcome To online book store </title>
+
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="{% static 'css/book_store.css' %}">
+		
+	</head>
+
+	<body>		
+		
+		<div class="content">
+			<a href="{% url 'add_new_book' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+			<h1> Online Book Store </h1>
+			
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+
+</html>

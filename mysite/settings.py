@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'book_store',
+    #'childrens_desktop'
 ]
 
 MIDDLEWARE_CLASSES = [

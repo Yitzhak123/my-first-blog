@@ -1,0 +1,11 @@
+
+{% extends 'book_store/base.html' %}
+
+{% block content %}
+	{% for book in books %}
+		<div class="book">
+			<a href="{% url 'book_detail' pk=book.pk %}"> {{ book.name }} </a> <br>
+			<p class="book_price"> {{ book.price }} </p>
+		</div>
+	{% endfor %}
+{% endblock %}

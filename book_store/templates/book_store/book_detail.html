@@ -1,0 +1,15 @@
+
+{% extends 'book_store/base.html' %}
+
+{% block content %}
+	<div class="book_details">
+		<h1> {{ book.name }} </h1> <br>
+		<h2> {{ book.author }} </h2> <br>
+		<h3> {{ book.price }} </h3> <br>
+		<div class="add">
+			<p class="addBookName"> Books list names : {{ book.get_data }} </p>
+			<a href="{% url 'add_new_name' pk=book.pk %}"> add new name to name's list </a>
+		</div>
+
+	</div>
+{% endblock %}

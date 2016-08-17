@@ -1,0 +1,12 @@
+
+{% extends 'book_store/base.html' %}
+
+{% block content %}
+    <h1>Add Book Name</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+    	<ul>
+       		Name : <li> {{ form.name }} </li>
+		</ul>
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

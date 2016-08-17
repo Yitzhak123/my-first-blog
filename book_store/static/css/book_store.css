@@ -1,0 +1,36 @@
+
+l1 {
+	color: purple;
+}
+
+ul {
+	font-size: 40pt;
+}
+
+h1 {
+	color: green;
+}
+
+h3 {
+	color: purple;
+}
+
+.myfieldclass {
+	color: blue;
+	font-size: 80pt;
+}
+
+.bookPrice {
+	font-size: 30pt
+	color: purple;
+}
+
+.addBookName p {
+	font-size: 50pt
+	color: red;
+}
+
+p {
+	font-size: 40pt
+	color: green;
+}

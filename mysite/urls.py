@@ -19,4 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
+    url(r'^book_store/', include('book_store.urls')),
+    #url(r'^childrens_desktop/', include('childrens_desktop.urls')),
 ]
