@@ -1,8 +1,7 @@
 from django.db import models
 from django.utils import timezone
 import json
-#from django.contrib.postgres.fields import HStoreField
-from django.contrib.postgres.fields import ArrayField
+#from django.contrib.postgres.fields import ArrayField
 
 class Receipt(models.Model):
 	
