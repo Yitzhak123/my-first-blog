@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
 from .models import Book
 from .forms import BookForm
 from .forms import BookNameForm
@@ -14,6 +15,7 @@ def book_list(request):
 	books = Book.objects.all()
 	return render(request, 'book_store/book_list.html', {'books' : books})
 
+@login_required
 def add_new_book(request):
 	if(request.method == "POST"):
 		form = BookForm(request.POST)

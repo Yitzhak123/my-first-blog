@@ -3,6 +3,13 @@ from django.utils import timezone
 import json
 #from django.contrib.postgres.fields import ArrayField
 
+def add_object_to_jsonlist(obj, jsonlist):
+	jsonDec = json.JSONDecoder()
+	list = jsonDec.decode(jsonlist)
+	list.append(obj)
+	jsonlist = json.dumps(list)
+	return jsonlist
+
 class Receipt(models.Model):
 	
 	book_name = models.CharField(max_length=70)
@@ -19,8 +26,27 @@ class Receipt(models.Model):
 		return ("book_name = "+ self.book_name + ", person_name = "+ self.person_name)
 
 class BookName(models.Model):
-	name = models.CharField(max_length=30)
+	name = models.CharField(max_length=30, default="???")
 
+
+#Test models inheritance
+class Base(models.Model):
+	num = models.IntegerField(default=0)
+	password = models.CharField(max_length=10, default="0")
+
+	def base_func(self):
+		print("num = " +str(self.num))
+
+class Derived(Base):
+	name = models.CharField(max_length=40)
+	unique_name = models.IntegerField(primary_key=True)
+
+	def derived_func(self):
+		print("name = " + self.name)
+		self.base_func()
+		
+#End of test models inheritance
+		
 class Book(models.Model):
 
 	BOOK_CATEGORY = (
@@ -57,10 +83,7 @@ class Book(models.Model):
 		#receipt.save()
 
 	def add_name(self, name):
-		jsonDec = json.JSONDecoder()
-		list = jsonDec.decode(self.data)
-		list.append(name)
-		self.data = json.dumps(list)
+		self.data = add_object_to_jsonlist(name, self.data)
 		self.save()
 
 	def get_data(self):

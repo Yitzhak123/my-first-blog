@@ -1,0 +1,18 @@
+
+{% extends 'childrens_desktop/base.html' %}
+
+{% block content %}
+   <h2>Login</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+    	<ul>
+       		Email : <li> {{ form.email }} </li><br>
+            Password : <li> {{ form.password }} </li>
+		</ul>
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+
+    <br>
+
+    <h3> {{ form.description.value }} </h3>
+{% endblock %}
+

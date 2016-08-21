@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'book_store',
-    #'childrens_desktop'
+    'childrens_desktop',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -123,3 +123,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'static')
+LOGIN_REDIRECT_URL = '/'

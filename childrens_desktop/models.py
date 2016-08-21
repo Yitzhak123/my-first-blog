@@ -4,34 +4,54 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
+class AppModel(models.Model):
+    name = models.CharField(max_length=30, default="???", unique=True)
+    min_age = models.IntegerField(default=4)
+    max_age = models.IntegerField(default=12)
+    link_to_app = models.CharField(max_length=200, default="no link")
 
-class Movie(models.Model):
-    name = models.CharField(max_length=30)
-    Movie_Category = (
-        ('History' 'History'),
-        ('Drama', 'Drama'),
-        ('Fantazi', 'Fantazi'),
-        ('None', 'None')
+class Movie(AppModel):
+    MOVIE_CATEGORY = (
+        ('0', 'History'),
+        ('1', 'Drama'),
+        ('2', 'Fantazi'),
+        ('3', 'NoCategory')
     )
 
-    min_age = models.IntegerField()
-    max_age = models.IntegerField()
-    price = models.FloatField()
+    category = models.CharField(max_length=1, choices=MOVIE_CATEGORY, default='NoCategory')
 
-class DeskTopUser(models.Model):
+class Game(AppModel):
+    GAME_CATEGORY = (
+        ('1', 'Strategy'),
+        ('2', 'Action'),
+        ('3', 'Racing')
+    )
+
+class DeskTopUserManager(models.Model):
     name = models.CharField(max_length=50)
     password = models.CharField(max_length=20)
-    email = models.CharField(max_length=60, primary_key=True)
+    email = models.CharField(max_length=60, default="noEmail", unique=True)
 
-    #applications =
+    desktop_users = models.TextField()
+
+    #List of applications types
     movies = models.TextField(null=False)
     games = models.TextField(null=False)
 
-    def add_user(self, name, password, email):
-        jsonDec = json.JSONDecoder()
+    def add_user(self):
         self.movies = json.dumps([])
         self.games = json.dumps([])
+        User.objects.create(username=self.name, email=self.email, password=self.password)
         self.save()
 
-    def add_movie(self):
-        
+    def add_app(self, app_type, app_name):
+        jsonDec = json.JSONDecoder()
+        list_app_type = jsonDec.decode(getattr(self, app_type))
+        list_app_type.append(app_name)
+        setattr(self, app_type, list_app_type)
+
+
+class DeskTopUserManagerLoginDetails(models.Model):
+    email = models.CharField(max_length=60)
+    password = models.CharField(max_length=20)
+    description = models.TextField(default="Email or password is incorrect")
