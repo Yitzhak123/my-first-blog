@@ -27,21 +27,17 @@ class Game(AppModel):
         ('3', 'Racing')
     )
 
-class DeskTopUserManager(models.Model):
-    name = models.CharField(max_length=50)
-    password = models.CharField(max_length=20)
-    email = models.CharField(max_length=60, default="noEmail", unique=True)
-
-    desktop_users = models.TextField()
-
-    #List of applications types
+class DesktopUser(models.Model):
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    username = models.CharField(max_length=30, unique=True)
+    # List of applications types
     movies = models.TextField(null=False)
     games = models.TextField(null=False)
 
     def add_user(self):
         self.movies = json.dumps([])
         self.games = json.dumps([])
-        User.objects.create(username=self.name, email=self.email, password=self.password)
         self.save()
 
     def add_app(self, app_type, app_name):
@@ -50,8 +46,19 @@ class DeskTopUserManager(models.Model):
         list_app_type.append(app_name)
         setattr(self, app_type, list_app_type)
 
+class DesktopUserManager(DesktopUser):
 
-class DeskTopUserManagerLoginDetails(models.Model):
+    password = models.CharField(max_length=20)
+    email = models.CharField(max_length=60, default="noEmail", unique=True)
+    user = models.OneToOneField(User, default=None)
+
+    desktop_users = models.TextField() # List of users
+
+    def add_user_manager(self):
+        self.add_user()
+        User.objects.create(username=self.name, email=self.email, password=self.password)
+
+class DesktopUserManagerLoginDetails(models.Model):
     email = models.CharField(max_length=60)
     password = models.CharField(max_length=20)
     description = models.TextField(default="Email or password is incorrect")

@@ -1,16 +1,18 @@
 
 from django import forms
-from .models import DeskTopUserManager
-from .models import DeskTopUserManagerLoginDetails
+from .models import DesktopUser
+from .models import DesktopUserManager
+from .models import DesktopUserManagerLoginDetails
+from django.contrib.auth.models import User
 
-class DeskTopUserManagerLoginDetailsForm(forms.ModelForm):
+class DesktopUserManagerLoginDetailsForm(forms.ModelForm):
 
     class Meta:
-        model = DeskTopUserManagerLoginDetails
+        model = DesktopUserManagerLoginDetails
         fields = ('email', 'password', 'description')
 
-class DeskTopUserManagerForm(forms.ModelForm):
+class DesktopUserManagerForm(forms.ModelForm):
 
     class Meta:
-        model = DeskTopUserManager
-        fields = ('name', 'email', 'password', )
+        model = User
+        fields = ('username', 'email', 'password', )
