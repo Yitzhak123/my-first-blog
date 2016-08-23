@@ -13,5 +13,5 @@ class DesktopUserManagerForm(forms.ModelForm):
 class DesktopUserForm(forms.ModelForm):
 
     class Meta:
-        model = DesktopUserManager
+        model = DesktopUser
         fields = ('username', 'age', )

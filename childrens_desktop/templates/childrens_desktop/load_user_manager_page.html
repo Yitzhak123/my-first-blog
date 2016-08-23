@@ -1,0 +1,23 @@
+
+{% extends 'childrens_desktop/base.html' %}
+
+{% block content %}
+    <h2> Success to login to desktop user for children </h2>
+    <p> {{ desktop_user_manager.username }} </p>
+    <p> {{ desktop_user_manager.email }} </p>
+
+	<p> {{ users }} </p>
+	<table class="user">
+		<th> user's list </th>
+		{% for user in users %}
+			<tr>
+				<td class="user_username">
+					<a href="{% url 'user_detail' %}">{{ user }} </a>
+				</td>
+			</tr>
+		{% endfor %}
+	</table>
+	<a href="{% url 'add_new_user' %}"> Add new User </a>
+{% endblock %}
+
+
