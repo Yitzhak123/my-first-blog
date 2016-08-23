@@ -2,11 +2,9 @@
 {% extends 'childrens_desktop/base.html' %}
 
 {% block content %}
-    <h1> Add new User </h1>
+    <h1>Add new User Manager</h1>
     <form method="POST" class="post-form">{% csrf_token %}
-    	{{ form.username }}
-        {{ form.age }}
+    	{{ form.as_p }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}
-

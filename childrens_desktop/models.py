@@ -2,7 +2,17 @@ import json
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
+
+# The function get jsonlist, and add the object obj to jsonlist.
+# It returns the new jsonlist
+def add_object_to_jsonlist(jsonlist, obj):
+	jsonDec = json.JSONDecoder()
+	list = jsonDec.decode(jsonlist)
+	list.append(obj)
+	jsonlist = json.dumps(list)
+	return jsonlist
 
 class AppModel(models.Model):
     name = models.CharField(max_length=30, default="???", unique=True)
@@ -31,6 +41,7 @@ class DesktopUser(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=30, unique=True)
+    age = models.IntegerField(default=0)
     # List of applications types
     movies = models.TextField(null=False)
     games = models.TextField(null=False)
@@ -41,24 +52,24 @@ class DesktopUser(models.Model):
         self.save()
 
     def add_app(self, app_type, app_name):
-        jsonDec = json.JSONDecoder()
-        list_app_type = jsonDec.decode(getattr(self, app_type))
-        list_app_type.append(app_name)
-        setattr(self, app_type, list_app_type)
+        jsonlist_app_type = getattr(self, app_type)
+        jsonlist_app_type = add_object_to_jsonlist(jsonlist_app_type, app_name)
+        setattr(self, app_type, jsonlist_app_type)
 
 class DesktopUserManager(DesktopUser):
 
     password = models.CharField(max_length=20)
     email = models.CharField(max_length=60, default="noEmail", unique=True)
-    user = models.OneToOneField(User, default=None)
 
-    desktop_users = models.TextField() # List of users
+    desktop_users_group = models.TextField(default="[]") # List of users
 
     def add_user_manager(self):
+        self.desktop_users_group = json.dumps([])
         self.add_user()
-        User.objects.create(username=self.name, email=self.email, password=self.password)
+        User.objects.create_user(
+            username=self.username, email=self.email, password=self.password)
 
-class DesktopUserManagerLoginDetails(models.Model):
-    email = models.CharField(max_length=60)
-    password = models.CharField(max_length=20)
-    description = models.TextField(default="Email or password is incorrect")
+    def add_user_to_group(self, username):
+        self.desktop_users_group = add_object_to_jsonlist(
+                self.desktop_users_group, username)
+        self.save()
