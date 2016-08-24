@@ -19,3 +19,12 @@ table, th, td {
     border: 1px solid black;
 }
 
+.users_list {
+    align-content: center;
+}
+
+.user_detail {
+    font-size: 40pt;
+    color: purple;
+}
+

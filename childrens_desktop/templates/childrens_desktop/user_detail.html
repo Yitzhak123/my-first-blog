@@ -2,9 +2,10 @@
 {% extends 'childrens_desktop/base.html' %}
 
 {% block content %}
-    <h2> {{ user.username }}</h2>
-
-    <p> {{ user.age }} </p>
+    <div class="user_detail">
+        username : <p> {{ user.username }}</p>
+        Age : <p> {{ user.age }} </p>
+    </div>
 {% endblock %}
 
 

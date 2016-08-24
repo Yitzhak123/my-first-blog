@@ -20,6 +20,9 @@ class AppModel(models.Model):
     max_age = models.IntegerField(default=12)
     link_to_app = models.CharField(max_length=200, default="no link")
 
+    def __str__(self):
+        return ("name = " + self.name)
+
 class Movie(AppModel):
     MOVIE_CATEGORY = (
         ('0', 'History'),
@@ -42,26 +45,29 @@ class DesktopUser(models.Model):
     last_name = models.CharField(max_length=20)
     username = models.CharField(max_length=30, unique=True)
     age = models.IntegerField(default=0)
-    # List of applications types
-    movies = models.TextField(null=False)
-    games = models.TextField(null=False)
+    group_id = models.IntegerField(default=0)
 
-    def add_user(self):
+    # List of applications types
+    movies = models.ManyToManyField(Movie)
+    games = models.ManyToManyField(Game)
+
+    def add_user(self, group_id=0):
         self.movies = json.dumps([])
         self.games = json.dumps([])
+        self.group_id = group_id
         self.save()
 
-    def add_app(self, app_type, app_name):
-        jsonlist_app_type = getattr(self, app_type)
-        jsonlist_app_type = add_object_to_jsonlist(jsonlist_app_type, app_name)
-        setattr(self, app_type, jsonlist_app_type)
+    def add_app(self, app_type, new_app):
+        app_type_set = getattr(self, app_type)
+        app_type_set.add(new_app)
+
+    def __str__(self):
+        return "Username : " + str(self.username)
 
 class DesktopUserManager(DesktopUser):
 
     password = models.CharField(max_length=20)
     email = models.CharField(max_length=60, default="noEmail", unique=True)
-
-    desktop_users_group = models.TextField(default="[]") # List of users
 
     def add_user_manager(self):
         self.desktop_users_group = json.dumps([])

@@ -3,20 +3,23 @@
 
 {% block content %}
     <h2> Success to login to desktop user for children </h2>
-    <p> {{ desktop_user_manager.username }} </p>
-    <p> {{ desktop_user_manager.email }} </p>
 
-	<p> {{ users }} </p>
-	<table class="user">
-		<th> user's list </th>
+	{% if users %}
+	<table class="users_list">
+		<th> username </th>
+		<th> age </th>
 		{% for user in users %}
 			<tr>
 				<td class="user_username">
-					<a href="{% url 'user_detail' %}">{{ user }} </a>
+					<a href="{% url 'user_detail' pk=user.pk %}">{{ user.username }} </a>
 				</td>
+				<td class="user_age"> {{ user.age }} </td>
 			</tr>
 		{% endfor %}
 	</table>
+	{% else %}
+	<h3 class="empty_users_list"> you have no users in your group </h3>
+	{% endif %}
 	<a href="{% url 'add_new_user' %}"> Add new User </a>
 {% endblock %}
 
