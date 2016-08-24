@@ -8,15 +8,14 @@ from .forms import DesktopUserManagerForm
 from .models import DesktopUser
 from .forms import DesktopUserForm
 from .models import *
-from .forms import *
+from .forms import MovieForm
 
 @login_required
 def load_user_manager_page(request):
-    desktop_user_manager = DesktopUserManager.objects.get(username=request.user.username)
-    jsonDec = json.JSONDecoder()
-    users = DesktopUser.objects.filter(group_id=desktop_user_manager.pk)
+    manager = DesktopUserManager.objects.get(username=request.user.username)
+    users = DesktopUser.objects.filter(group_id=manager.pk)
     return render(request, 'childrens_desktop/load_user_manager_page.html',
-                  {'desktop_user_manager': desktop_user_manager, 'users': users})
+                  {'manager': manager, 'users': users, 'movies': manager.movies.all()})
 
 def add_new_user_manager(request):
     if(request.method == "POST"):
@@ -47,20 +46,23 @@ def user_detail(request, pk):
     user = get_object_or_404(DesktopUser, pk=pk)
     return render(request, 'childrens_desktop/user_detail.html', {'user': user})
 
-
+@login_required
 def add_new_app(request, name):
     manager = DesktopUserManager.objects.get(username=request.user.username)
     if(request.method == "POST"):
         form = get_form_by_model_name(name, request.POST)
+        if(form.is_valid() and name != None):
+            app = form.save(commit=True)
+            app.save()
+            manager.add_app(name, app)
+            return redirect('load_user_manager_page')
+        else:
+            return redirect('load_user_manager_page')
+    else:
+        form = get_form_by_model_name(name)
+    return render(request, 'childrens_desktop/add_new_app.html', {'form': form})
 
 def get_form_by_model_name(model_name, data=None):
-    if(model_name == "Movie"):
+    if(model_name == "movie"):
         return MovieForm(data)
-
-# def users_list(request):
-#     manager = DesktopUserManager.objects.get(username=request.user.username)
-#     jsonDec = json.JSONDecoder()
-#     users_group_list = jsonDec.decode(manager.desktop_users_group)
-#
-# 	return render(request, 'book_store/book_list.html', {'books' : books})
 

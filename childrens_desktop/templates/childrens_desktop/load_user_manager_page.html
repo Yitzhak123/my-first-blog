@@ -19,8 +19,15 @@
 	</table>
 	{% else %}
 	<h3 class="empty_users_list"> you have no users in your group </h3>
-	{% endif %}
+	{% endif %} <br>
 	<a href="{% url 'add_new_user' %}"> Add new User </a>
+	<div class="movies">
+		{% for movie in movies %}
+			{{ movie.name }} <br>
+			{{ movie.min_age }} <br>
+		{% endfor %}
+	</div>
+	<a class="add movie" href="{% url 'add_new_app' name='movie' %}"> Add movie </a>
 {% endblock %}
 
 

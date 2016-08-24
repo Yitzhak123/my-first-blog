@@ -2,10 +2,10 @@
 {% extends 'childrens_desktop/base.html' %}
 
 {% block content %}
-    <h1> Add new User </h1>
+    <h1> Add new movie </h1>
     <form method="POST" class="post-form">{% csrf_token %}
-    	Name : {{ form.username }} <br>
-        Age : {{ form.age }}
+    	Name  {{ form.name }} <br>
+        Minimum age  {{ form.min_age }}
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}

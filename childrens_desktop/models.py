@@ -58,7 +58,7 @@ class DesktopUser(models.Model):
         self.save()
 
     def add_app(self, app_type, new_app):
-        app_type_set = getattr(self, app_type)
+        app_type_set = getattr(self, app_type + "s")
         app_type_set.add(new_app)
 
     def __str__(self):
