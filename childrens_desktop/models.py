@@ -43,7 +43,8 @@ class Game(AppModel):
 class DesktopUser(models.Model):
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
-    username = models.CharField(max_length=30, unique=True)
+    username = models.CharField(max_length=30, unique=True,
+                                error_messages={'unique': "this username already exist"})
     age = models.IntegerField(default=0)
     group_id = models.IntegerField(default=0)
 

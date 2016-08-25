@@ -1,4 +1,5 @@
 import  json
+from django.apps import apps
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import get_object_or_404
@@ -26,7 +27,8 @@ def add_new_user_manager(request):
             return redirect('login')
     else:
         form = DesktopUserManagerForm()
-    return render(request, 'childrens_desktop/add_new_user_manager.html', {'form': form})
+    return render(request, 'childrens_desktop/add_new_user_manager.html',
+                  {'form': form})
 
 @login_required
 def add_new_user(request):
@@ -41,28 +43,44 @@ def add_new_user(request):
         form = DesktopUserForm()
     return render(request, 'childrens_desktop/add_new_user.html', {'form': form})
 
+
 @login_required
 def user_detail(request, pk):
     user = get_object_or_404(DesktopUser, pk=pk)
     return render(request, 'childrens_desktop/user_detail.html', {'user': user})
+
 
 @login_required
 def add_new_app(request, name):
     manager = DesktopUserManager.objects.get(username=request.user.username)
     if(request.method == "POST"):
         form = get_form_by_model_name(name, request.POST)
-        if(form.is_valid() and name != None):
+        if(form.is_valid()):
             app = form.save(commit=True)
             app.save()
             manager.add_app(name, app)
-            return redirect('load_user_manager_page')
-        else:
             return redirect('load_user_manager_page')
     else:
         form = get_form_by_model_name(name)
     return render(request, 'childrens_desktop/add_new_app.html', {'form': form})
 
+
+# This function is for internal use
 def get_form_by_model_name(model_name, data=None):
-    if(model_name == "movie"):
+    if model_name == "movie":
         return MovieForm(data)
 
+
+def app_detail(request, name, pk):
+    app_model = apps.get_model('childrens_desktop', name)
+    app = get_object_or_404(app_model, pk=pk)
+    return render(request, 'childrens_desktop/'+name+'_detail.html', {name: app})
+
+
+@login_required
+def remove_app(request, name, pk):
+    manager = DesktopUserManager.objects.get(username=request.user.username)
+    app_model = apps.get_model('childrens_desktop', name)
+    app = get_object_or_404(app_model, pk)
+    app.delete()
+    return redirect('load_user_manager_page')

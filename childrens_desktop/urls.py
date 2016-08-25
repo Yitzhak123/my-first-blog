@@ -8,5 +8,7 @@ urlpatterns = [
 	url(r'^user/new/$', views.add_new_user, name='add_new_user'),
 	url(r'^user/(?P<pk>\d+)/$', views.user_detail, name='user_detail'),
 	url(r'^(?P<name>\w+)/new/$', views.add_new_app, name='add_new_app'),
+	url(r'^(?P<name>\w+)/(?P<pk>\d+)/$', views.app_detail, name='app_detail'),
+	url(r'^(?P<name>\w+)/(?P<pk>\d+)/$', views.remove_app, name='remove_app'),
 	# url(r'^book/(?P<pk>\d+)/add_name/$', views.add_new_name, name='add_new_name'),
 ]

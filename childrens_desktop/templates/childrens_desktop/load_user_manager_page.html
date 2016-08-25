@@ -23,11 +23,12 @@
 	<a href="{% url 'add_new_user' %}"> Add new User </a>
 	<div class="movies">
 		{% for movie in movies %}
-			{{ movie.name }} <br>
-			{{ movie.min_age }} <br>
+			<a href="{% url 'app_detail' name='movie' pk=movie.pk %}">
+				{{ movie.name }} </a> <br>
 		{% endfor %}
 	</div>
 	<a class="add movie" href="{% url 'add_new_app' name='movie' %}"> Add movie </a>
+	<a class="add movie" href="{% url 'add_new_app' name='movie' %}"> Remove movie </a>
 {% endblock %}
 
 
