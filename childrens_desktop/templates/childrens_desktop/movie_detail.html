@@ -2,7 +2,9 @@
 {% extends 'childrens_desktop/base.html' %}
 
 {% block content %}
-    <div class="movie_detail">
+    <a class="btn btn-default" href="{% url 'remove_app' name='movie' pk=movie.pk %}">
+        <span class="glyphicon glyphicon-remove"></span></a>
+    <div class="movie-detail">
         name : <p> {{ movie.name }}</p>
         minimum age : <p> {{ movie.min_age }} </p>
     </div>

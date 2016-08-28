@@ -18,7 +18,9 @@
         <!--{% endfor %}-->
     <!--{% endif %}-->
     <form method="POST" class="post-form">{% csrf_token %}
+        <div class="user-form">
     	{{ form.as_p }}
+            </div>
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}

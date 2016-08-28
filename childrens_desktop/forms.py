@@ -19,6 +19,10 @@ class DesktopUserForm(forms.ModelForm):
     class Meta:
         model = DesktopUser
         fields = ('username', 'age', )
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'user_username'}),
+            'age': forms.TextInput(attrs={'class': 'user_age'}),
+        }
 
 
 class MovieForm(forms.ModelForm):

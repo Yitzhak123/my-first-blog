@@ -53,8 +53,6 @@ class DesktopUser(models.Model):
     games = models.ManyToManyField(Game)
 
     def add_user(self, group_id=0):
-        self.movies = json.dumps([])
-        self.games = json.dumps([])
         self.group_id = group_id
         self.save()
 

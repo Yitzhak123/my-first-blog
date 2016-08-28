@@ -71,6 +71,7 @@ def get_form_by_model_name(model_name, data=None):
         return MovieForm(data)
 
 
+@login_required
 def app_detail(request, name, pk):
     app_model = apps.get_model('childrens_desktop', name)
     app = get_object_or_404(app_model, pk=pk)
@@ -81,6 +82,6 @@ def app_detail(request, name, pk):
 def remove_app(request, name, pk):
     manager = DesktopUserManager.objects.get(username=request.user.username)
     app_model = apps.get_model('childrens_desktop', name)
-    app = get_object_or_404(app_model, pk)
+    app = get_object_or_404(app_model, pk=pk)
     app.delete()
     return redirect('load_user_manager_page')
