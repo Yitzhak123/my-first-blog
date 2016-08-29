@@ -1,0 +1,13 @@
+
+{% extends 'childrens_desktop/base.html' %}
+
+{% block content %}
+    <div class="app-detail">
+        name : <p> {{ game.name }}</p>
+        minimum age : <p> {{ game.min_age }} </p>
+    </div><br>
+
+    <a class="remove-app" href="{% url 'remove_app' app_type='game' pk=game.pk %}">
+        Remove game
+    </a>
+{% endblock %}

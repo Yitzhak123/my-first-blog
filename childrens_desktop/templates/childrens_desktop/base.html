@@ -11,17 +11,17 @@
 		
 	</head>
 
-	<body>		
-		<div class="page-header">
-			{% if user.is_authenticated %}
-				<p class="top-menu">Hello {{ user.username }}<small>
-				(<a href="{% url 'logout' %}">Log out</a>)</small></p>
-			{% endif %}
-		</div>
-
-		<div class="content">
-
+	<body>
+		<header>
+			<div class="page-top">
+				{% if user.is_authenticated %}
+					<p class="top-menu">Hello {{ user.username }}<small>
+					(<a href="{% url 'logout' %}">Log out</a>)</small></p>
+				{% endif %}
+			</div>
 			<h1> Desktop for children </h1>
+		</header>
+		<div class="content">
 			
 			{% block content %}
 			{% endblock %}

@@ -1,18 +1,9 @@
-ul {
-	font-size: 40pt;
+header > h1 {
+    color: green;
 }
 
-h1 {
-	color: green;
-}
-
-h3 {
-	color: purple;
-}
-
-p {
-	font-size: 40pt
-	color: green;
+hr {
+    border: 2px solid green;
 }
 
 table, th, td {
@@ -20,24 +11,25 @@ table, th, td {
     font-size: 20pt;
 }
 
-.users_list {
-    align-content: center;
+.users-list {
+    text-align: center;
 }
 
-.user_detail_link {
+.user-detail-link {
     color: purple;
 }
 
-.manager_movies_list {
+ol {
     font-size: 20pt;
     color: #FF00FF;
 }
 
-.add_new_user {
+.add-new-user {
     font-size: 20pt;
+    color: #FF00FF;
 }
 
-.add_movie {
+.add-app {
     font-size: 20pt;
     color: #FF00FF;
 }
@@ -55,7 +47,17 @@ div.user-detail {
     font-size:18pt;
 }
 
-div.movie-detail{
+div.app-detail{
     font-size: 18pt;
-    color: purple;
+    color: black;
+}
+
+.remove-user {
+    font-size: 20pt;
+    color: red;
+}
+
+.remove-app {
+    font-size: 20pt;
+    color: red;
 }

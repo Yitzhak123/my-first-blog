@@ -5,32 +5,43 @@
     <h2> Success to login to desktop user for children </h2>
 
 	{% if users %}
-	<table class="users_list">
+	<table class="users-list">
 		<th> username </th>
 		<th> age </th>
 		{% for user in users %}
 			<tr>
-				<td class="user_username">
-					<a class="user_detail_link" href="{% url 'user_detail' pk=user.pk %}">
+				<td class="user-username">
+					<a class="user-detail-link" href="{% url 'user_detail' pk=user.pk %}">
 						{{ user.username }} </a>
 				</td>
-				<td class="user_age"> {{ user.age }} </td>
+				<td class="user-age"> {{ user.age }} </td>
 			</tr>
 		{% endfor %}
 	</table>
 	{% else %}
-	<h3 class="empty_users_list"> you have no users in your group </h3>
+	<h3 class="empty-users-list"> you have no users in your group </h3>
 	{% endif %} <br>
 
-	<a class="add_new_user" href="{% url 'add_new_user' %}"> Add new User </a> <br>
-	<ol class="manager_movies_list">
+	<a class="add-new-user" href="{% url 'add_new_user' %}"> Add new User </a><hr>
+	<h2> Movie's List</h2>
+	<ol class="manager-movies-list">
 		{% for movie in movies %}
-			<li> <a href="{% url 'app_detail' name='movie' pk=movie.pk %}">
-				{{ movie.name }} </a> </li> <br>
+			<li> <a href="{% url 'app_detail' app_type='movie' pk=movie.pk %}">
+				{{ movie.name }} </a> </li>
 		{% endfor %}
 	</ol>
 
-	<a class="add_movie" href="{% url 'add_new_app' name='movie' %}"> Add movie </a> <br>
+	<a class="add-app" href="{% url 'add_new_app' app_type='movie' %}"> Add movie </a> <hr>
+
+	<h2> Game's List</h2>
+	<ol class="manager-games-list">
+		{% for game in games %}
+			<li> <a href="{% url 'app_detail' app_type='game' pk=game.pk %}">
+				{{ game.name }} </a> </li>
+		{% endfor %}
+	</ol>
+
+	<a class="add-app" href="{% url 'add_new_app' app_type='game' %}"> Add game </a> <br>
 {% endblock %}
 
 

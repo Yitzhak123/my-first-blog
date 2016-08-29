@@ -7,6 +7,8 @@
         username : <p> {{ user.username }}</p>
         Age : <p> {{ user.age }} </p>
     </div>
+
+    <a class="remove-user" href="{% url 'remove_user' pk=user.pk %}">Reomove User</a>
 {% endblock %}
 
 

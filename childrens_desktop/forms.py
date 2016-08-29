@@ -5,9 +5,11 @@ from django import forms
 from .models import DesktopUser
 from .models import DesktopUserManager
 from .models import Movie
+from .models import Game
 
 
 class DesktopUserManagerForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = DesktopUserManager
@@ -30,3 +32,10 @@ class MovieForm(forms.ModelForm):
     class Meta:
         model = Movie
         fields = ('name', 'min_age', )
+
+
+class GameForm(forms.ModelForm):
+
+    class Meta:
+        model = Game
+        fields = ('name', 'min_age')
