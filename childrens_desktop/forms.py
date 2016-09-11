@@ -10,6 +10,7 @@ from .models import Game
 
 class DesktopUserManagerForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
+    email = forms.CharField(widget=forms.EmailInput())
 
     class Meta:
         model = DesktopUserManager
@@ -28,6 +29,7 @@ class DesktopUserForm(forms.ModelForm):
 
 
 class MovieForm(forms.ModelForm):
+    min_age = forms.IntegerField(min_value=4)
 
     class Meta:
         model = Movie
@@ -35,6 +37,7 @@ class MovieForm(forms.ModelForm):
 
 
 class GameForm(forms.ModelForm):
+    min_age = forms.IntegerField(min_value=4)
 
     class Meta:
         model = Game

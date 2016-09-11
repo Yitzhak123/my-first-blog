@@ -46,6 +46,18 @@ def user_detail(request, pk):
     user = get_object_or_404(DesktopUser, pk=pk)
     return render(request, 'childrens_desktop/user_detail.html', {'user': user})
 
+@login_required
+def user_edit(request, pk):
+    user = get_object_or_404(DesktopUser, pk=pk)
+    if request.method == "POST":
+        form = DesktopUserForm(request.POST, instance=user)
+        if form.is_valid():
+            post = form.save(commit=True)
+            return redirect('load_user_manager_page', pk=post.pk)
+    else:
+        form = DesktopUserForm(instance=user)
+    return render(request, 'childrens_desktop/user_edit.html', {'form': form})
+
 
 @login_required
 def remove_user(request, pk):
