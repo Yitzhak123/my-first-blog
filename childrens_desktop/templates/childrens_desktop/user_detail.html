@@ -9,6 +9,8 @@
     </div>
 
     <a class="remove-user" href="{% url 'remove_user' pk=user.pk %}">Reomove User</a>
+    <a class="user-edit" href="{% url 'user_edit' pk=user.pk %}">Edit User details</a>
+
 {% endblock %}
 
 

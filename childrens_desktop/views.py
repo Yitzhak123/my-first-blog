@@ -27,6 +27,13 @@ def add_new_user_manager(request):
     return render(request, 'childrens_desktop/add_new_user_manager.html',
                   {'form': form})
 
+
+@login_required
+def user_detail(request, pk):
+    user = get_object_or_404(DesktopUser, pk=pk)
+    return render(request, 'childrens_desktop/user_detail.html', {'user': user})
+
+
 @login_required
 def add_new_user(request):
     manager = DesktopUserManager.objects.get(username=request.user.username)
@@ -38,13 +45,9 @@ def add_new_user(request):
             return redirect('load_user_manager_page')
     else:
         form = DesktopUserForm()
-    return render(request, 'childrens_desktop/add_new_user.html', {'form': form})
+    return render(request, 'childrens_desktop/user_edit.html',
+                  {'form': form, 'form_headline': "Add new user"})
 
-
-@login_required
-def user_detail(request, pk):
-    user = get_object_or_404(DesktopUser, pk=pk)
-    return render(request, 'childrens_desktop/user_detail.html', {'user': user})
 
 @login_required
 def user_edit(request, pk):
@@ -53,10 +56,11 @@ def user_edit(request, pk):
         form = DesktopUserForm(request.POST, instance=user)
         if form.is_valid():
             post = form.save(commit=True)
-            return redirect('load_user_manager_page', pk=post.pk)
+            return redirect('load_user_manager_page')
     else:
         form = DesktopUserForm(instance=user)
-    return render(request, 'childrens_desktop/user_edit.html', {'form': form})
+    return render(request, 'childrens_desktop/user_edit.html',
+                  {'form': form, 'form_headline': "Edit user details"})
 
 
 @login_required
