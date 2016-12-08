@@ -5,6 +5,6 @@
     <h1>Add new User Manager</h1>
     <form method="POST" class="post-form">{% csrf_token %}
     	{{ form.as_p }}
-        <input type="submit" value="Save"/>
+        <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}
